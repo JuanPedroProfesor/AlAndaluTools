@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Contador Tareas</title>
+    <style>
+      body {
+        width: 800px;
+        height: 1000px;
+      }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" rel="stylesheet">
+  </head>
+
+  <body class="bg-gradient-to-br from-blue-100 to-blue-500">
+    <div class="container mx-auto mt-5">
+      <div class="flex flex-col items-center justify-center">
+        <h1 class="font-extrabold text-lg text-center text-white">Todo a cero</h1>
+        <p class="font-sans text-sm">Esta extensión configura todas las calificaciones a 0</p>
+
+        <div class="flex flex-row items-center justify-center">
+          <div class="mt-10 mr-10 mb-2">
+            <ul class="w-56 text-sm font-medium text-gray-900 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+              <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                <div class="flex items-center pl-3">
+                  <input id="list-radio-uno" type="radio" value="" checked="true" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                  <label for="list-radio-uno" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Solo alumno actual</label>
+                </div>
+              </li>
+              <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                <div class="flex items-center pl-3">
+                  <input id="list-radio-todos" type="radio" value="" name="list-radio"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                  <label for="list-radio-todos"
+                    class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Todos los alumnos</label>
+                </div>
+              </li>
+              <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                <div class="flex items-center pl-3">
+                  <input id="list-radio-sin_entrega" type="radio" value="" name="list-radio"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                    disabled>
+                  <label for="list-radio-sin_entrega"
+                    class="w-full py-3 ml-2 text-sm font-medium text-gray-500 dark:text-gray-300">Todos los alumnos que no tengan entrega</label>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        <button id="cero-button" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl hover:from-purple-600 hover:to-pink-600 font-bold rounded-lg text-lg px-5 py-2.5 mt-10 text-center ml-10 mb-2">Tareas</button>
+        </div>
+        <div id="spinnerAcero" wire:loading class="invisible mt-2 mb-2">
+          <svg class="animate-spin h-4 w-4 rounded-full bg-transparent border-2 border-transparent border-opacity-50" style="border-right-color: white; border-top-color: white;" viewBox="0 0 24 24"></svg>
+        </div>
+
+        <!--SEPARADOR DE LOS DOS PROGRAMAS -->
+
+        <h1 class="font-extrabold text-lg text-center text-white">Contador de Tareas</h1>
+        <p class="font-sans text-sm">¿Cuántas tareas tengo pendientes?</p>
+        <button id="tareas-button" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl hover:from-purple-600 hover:to-pink-600 font-bold rounded-lg text-lg px-5 py-2.5 mt-10 text-center mr-2 mb-2">Tareas</button>
+
+        <div id="spinner" wire:loading class="invisible mt-2 mb-2">
+          <svg class="animate-spin h-4 w-4 rounded-full bg-transparent border-2 border-transparent border-opacity-50" style="border-right-color: white; border-top-color: white;" viewBox="0 0 24 24"></svg>
+        </div>
+
+        <div class="flex flex-col ">
+          <div class=" sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+              <div class="overflow-h overflow-x max-w-full">
+                <table class="w-full h-full text-center text-sm font-light bg-secondary-100">
+                  <thead class="bg-gray-50 border-b-2 border-gray-200 font-medium">
+                    <tr>
+                      <th scope="col" class="px-6 py-4">Módulo</th>
+                      <th scope="col" class="px-6 py-4">Tarea</th>
+                      <th scope="col" class="px-6 py-4">Tareas Pendientes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="resultados"></div>
+
+      <img class="max-h-16 max-w-16 absolute top-0 left-0 ml-3 mt-3" src="escudoIES.png" alt="logo IES AlAndalus">
+      <img class="max-h-8 max-w-8 absolute top-0 right-0 mr-3 mt-3" src="help.png" alt="ayuda">
+      <a class="max-h-8 max-w-8 absolute bottom-12 right-0 mb-3 font-sans text-sm font-light  transform -rotate-90"
+        href="linkedin.com/in/juan-pedro-martínez-64875621">Créditos: J.P. Martínez</a>
+    </div>
+    <script src="obtenerTareas.js"></script>
+    <script src="ponerACero.js"></script>
+  </body>
+</html>

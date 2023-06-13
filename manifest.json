@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    "name": "AlAndaluTools",
+    "version": "1.0",
+    "description": "Una serie de herramientas para FP Semipresencial",
+    "permissions": [
+      "tabs",
+      "https://educacionadistancia.juntadeandalucia.es/*"  
+    ],
+    "browser_action": {
+      "default_popup": "principal.html"
+    },
+    "icons": {
+      "48": "icon.png"
+    },
+    "content_scripts": [
+        {
+          "matches": ["https://educacionadistancia.juntadeandalucia.es/*"],
+          "js": ["obtenerTareasBackground.js"]
+        },
+        {
+          "matches": ["https://educacionadistancia.juntadeandalucia.es/*"],
+          "js": ["ponerACeroBackground.js"]
+        }
+      ]
+  }
+  
