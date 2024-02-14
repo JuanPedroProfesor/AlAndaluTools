@@ -10,7 +10,7 @@
  // 3 --> Todos los alumnos que no hayan hecho ninguna entrega
  
  //alert("Valor de configuracion: " + configuracion);
- 
+
  if(configuracion == "1")
  {
     if(ponerTodoACero())
@@ -72,7 +72,7 @@ function ponerTodoACero()
     inputNotaGlobal = document.getElementById("id_grade");
     if(inputNotaGlobal)
     {
-        inputNotaGlobal.value = 0;
+        inputNotaGlobal.value = valorNota;
     }
     else
     {
@@ -84,7 +84,13 @@ function ponerTodoACero()
     //Poner a cero todos los selectores:
     selectoresNotasCriterios = document.querySelectorAll('select[id^="menuoutcome_"]');
     if(selectoresNotasCriterios)
-        selectoresNotasCriterios.forEach(selector => selector.value = "1");
+        selectoresNotasCriterios.forEach(selector => selector.value = ((10*valorNota)+1));
+
+    //Anadir comentario si se ha escrito algo en el textarea, si no, no se escribe nada:
+    f(valorComentario != '')
+    {
+        document.getElementById("id_assignfeedbackcomments_editoreditable").innerText="hola";   
+    }
 
     return true;
 }

@@ -1,6 +1,10 @@
 
 document.addEventListener('DOMContentLoaded', function() 
 {
+    //Input con el valor de la nota:
+    let valorNota = 0;
+    const inputNota = document.getElementById('valor_nota');
+    const txtAreComent = document.getElementById('valor_comentario');
     const tareasButton = document.getElementById('cero-button');
     tareasButton.addEventListener('click', ponerACero);
     let spinner = document.getElementById('spinnerAcero');
@@ -11,9 +15,23 @@ document.addEventListener('DOMContentLoaded', function()
     //Registramos listener:
     mostrarResultadosListener();
 
+    let regex=/^((\d|[1-9]\d+)(\.\d{1,2})?|\.\d{1,2})$/; //Para comprobar que sea un entero o con un decimal
+
     function ponerACero() 
     {
-        spinner.classList.remove("invisible"); //Mostrar el spinner al hacer clic
+      spinner.classList.remove("invisible"); //Mostrar el spinner al hacer clic
+
+      valorNota = inputNota.value;
+      //alert(valorNota);
+
+      if (!valorNota.match(regex)) 
+      {
+        alert("El valor introducido debe ser numérico");
+        return false;
+      }
+
+      comentario = txtAreComent.value; 
+      
 
         opcionRadioButtons.forEach( (radio, index) => { 
           if(radio.checked)
@@ -28,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function()
           if(tab.url.includes("educacionadistancia.juntadeandalucia.es"))
           {
             browser.tabs.executeScript(tab.id, {
-                code: 'configuracion = '+opcionSeleccionada+';'
+                code: 'configuracion = '+opcionSeleccionada+';'+' var valorNota = '+valorNota+';'+' var valorComentario = '+comentario+';'
                     }, function() {
                         browser.tabs.executeScript(tab.id, {file: 'ponerACeroBackground.js'});
               });

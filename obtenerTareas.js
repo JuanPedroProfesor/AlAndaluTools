@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function()
   
     function obtenerTareas() 
     {
+
         spinner.classList.remove("invisible"); //Mostrar el spinner al hacer clic
 
         browser.tabs.query({ url: URL_OBJETIVO }).then(tabs => {
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function()
             if (tabs.length > 0) 
             {
               tabId = tabs[0].id;
-              browser.tabs.executeScript(tabId, { file: 'obtenerTareasBackground.js' });
+              browser.tabs.executeScript(tabId, { file: 'obtenerTareasBackground.js' , runAt: 'document_end' });
             } 
             else 
             {
@@ -32,6 +33,9 @@ document.addEventListener('DOMContentLoaded', function()
     {
         browser.runtime.onMessage.addListener(function(message, sender) 
         {
+          console.log("Distancia: " + message.response);
+          alert("pepe");
+
           if (sender.tab.id === tabId && message.resultados) 
           {
             const resultadosContainer = document.getElementById('resultados');
@@ -43,20 +47,21 @@ document.addEventListener('DOMContentLoaded', function()
               mensajeSinResultados.textContent = 'No se encontraron resultados.';
               resultadosContainer.appendChild(mensajeSinResultados);
             } 
-            else if(message.resultados[0] == null)
-            {
-              const mensajeSinResultados = document.createElement('p');
-              mensajeSinResultados.textContent = 'Puede ser que su ventana principal de Moodle esté abierta pero la sesión esté cadudaca.';
-              resultadosContainer.appendChild(mensajeSinResultados);
-            }
+            // else if(message.resultados[0] == null)
+            // {
+            //   const mensajeSinResultados = document.createElement('p');
+            //   mensajeSinResultados.textContent = 'Puede ser que su ventana principal de Moodle esté abierta pero la sesión esté cadudaca.';
+            //   resultadosContainer.appendChild(mensajeSinResultados);
+            // }
             else 
             {
-              message.resultados.forEach(resultado => {
-                if(resultado != null && resultado.length > 0)
-                {
-                  generarFilasTabla(resultado[0].nombreAsignatura, resultado[0].tarea, resultado[0].quintaColumna);
-                }
-              });
+
+              // message.resultados.forEach(resultado => {
+              //   if(resultado != null)
+              //   {
+              //     generarFilasTabla(resultado[0].nombreAsignatura, resultado[0].tarea, resultado[0].quintaColumna);
+              //   }
+              // });
             }
           }
           spinner.classList.add("invisible");
@@ -67,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function()
 
     function generarFilasTabla(nombre, tarea, numero)
     {
+        console.log("Generando filas");
         //Vaciamos la tabla:
         let table = document.querySelector("table");
         table.querySelector("tbody").innerHTML="";

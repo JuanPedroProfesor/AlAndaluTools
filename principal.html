@@ -3,11 +3,11 @@
 
   <head>
     <meta charset="UTF-8">
-    <title>Contador Tareas</title>
+    <title>Calificador Tareas</title>
     <style>
       body {
-        width: 800px;
-        height: 1000px;
+        width: fit-content;
+        block-size: fit-content;
       }
     </style>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.7/dist/tailwind.min.css" rel="stylesheet">
@@ -15,14 +15,14 @@
 
   <!-- Web de modelo: https://www.wealthfront.com/-->
 
-  <body class="bg-gradient-to-r from-purple-50 to-purple-100">
-    <div class="container mx-auto mt-5" >
-      <div class="inline-block flex flex-col items-center justify-center border border-purple-800">
-        <h1 class="font-serif  text-2xl text-center" style="color: #230b59;">Todo a cero</h1>
-        <p class="font-sans text-smvfont-extrabold" style="color: #230b59;"> Configura todas las calificaciones a 0 </p>
+  <body class="bg-gradient-to-r from-purple-50 to-purple-100 p-5">
+    <div class="container" >
+      <div class="w-full flex flex-col items-center justify-content border border-purple-800 ">
+        <h1 class="font-serif text-2xl text-center" style="color: #230b59;">Todo a cero</h1>
+        <p class="font-sans text-smvfont-extrabold" style="color: #230b59;"> Configura una o todas las calificaciones al valor dado. </p>
         <!-- Cuadro seleccion numero alumnos -->
-        <div class="flex flex-row items-center justify-center shadow-xl ">
-          <div class="mt-10 mr-10 mb-2 ml-2">
+        <div class="flex flex-row p-3 items-center justify-content shadow-xl">
+          <div class="mt-10 mr-4  ml-2">
             <ul class="w-56 text-sm font-medium text-purple-900 bg-purple-50 border border-purple-800 rounded-lg ">
               <li class="w-full border-b border-gray-200 rounded-t-lg">
                 <div class="flex items-center pl-3">
@@ -49,20 +49,28 @@
               </li>
             </ul>
           </div>
-        <!-- Botón de acción -->
-        <button id="cero-button" class="relative inline-flex items-center justify-center p-0.5 mr-2 overflow-hidden text-sm font-medium text-purple-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
-          <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
-            Todo a 0
-        </span>
-        </button>
+        <!-- Botón de poner todo a 0 -->
+        <div class="w-60 flex flex-col p-2 items-center justify-center shadow-xl inline-flex items-center justify-center overflow-hidden text-sm font-medium text-purple-900 rounded-lg ">
+          <label for="valor_nota" class="font-serif  text-lg" style="color: #230b59;">Introduce nota:</label>
+          <input id="valor_nota" class="mx-5 py-3 bg-gray-50 border border-gray-300 text-blue-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full w-560 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-center" placeholder="¿Qué nota merece?" autofocus>
+          <label for="valor_comentario" class="font-serif  text-lg" style="color: #230b59;">Introduce Comentario:</label>
+          <textarea id="valor_comentario" rows="4" class=" mx-5 py-3 bg-gray-50 border border-gray-300 text-blue-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-center" placeholder="¿Qué comentario necesita? (Si deja en blanco, no se escribe nada)" autofocus></textarea>
+          <button id="cero-button" class=" my-6 inline-flex items-center justify-center p-0.5 mr-2 overflow-hidden text-sm font-medium text-purple-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">
+            <span class="px-5 py-2.5 transition-all ease-in duration-75 bg-white rounded-md group-hover:bg-opacity-0">
+              Introducir Nota
+            </span>
+          </button>
+          <div id="spinnerAcero" wire:loading class="invisible mt-2 mb-2">
+            <svg class="animate-spin h-4 w-4 rounded-full bg-transparent border-2 border-transparent border-opacity-50" style="border-right-color: rgb(153, 13, 240); border-top-color: rgb(189, 25, 222);" viewBox="0 0 24 24"></svg>
+          </div>
+       </div>
+        
         </div>
-        <div id="spinnerAcero" wire:loading class="invisible mt-2 mb-2">
-          <svg class="animate-spin h-4 w-4 rounded-full bg-transparent border-2 border-transparent border-opacity-50" style="border-right-color: rgb(153, 13, 240); border-top-color: rgb(189, 25, 222);" viewBox="0 0 24 24"></svg>
-        </div>
+       
       </div>
 
         <!--SEPARADOR DE LOS DOS PROGRAMAS -->
-      <div class="inline-block flex flex-col items-center justify-center border border-purple-800 mt-5">
+      <!-- <div class="inline-block flex flex-col items-center justify-center border border-purple-800 mt-5">
 
         <h1 class="font-serif text-2xl text-center mt-2" style="color: #230b59;">Contador de Tareas</h1>
         <p class="font-sans text-smvfont-extrabold" style="color: #230b59;">¿Cuántas tareas tengo pendientes?</p>
@@ -103,8 +111,9 @@
       <img class="max-h-8 max-w-8 absolute top-0 right-0 mr-6 mt-7" src="help.png" alt="ayuda">
       <a class="max-h-8 max-w-8 absolute bottom-12 right-0 mb-3 mx-0 px-0 font-sans text-xs font-light transform -rotate-90 translate-x-11"
         href="linkedin.com/in/juan-pedro-martínez-64875621">Créditos: J.P. Martínez</a>
-    </div>
-    <script src="obtenerTareas.js"></script>
+    
+    <script src="obtenerTareas.js"></script> -->
+  </div>
     <script src="ponerACero.js"></script>
   </body>
 </html>
